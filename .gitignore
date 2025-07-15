@@ -1,2 +1,4 @@
 *.lock
 *.swp
+public
+resources/_gen

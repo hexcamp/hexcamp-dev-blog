@@ -1,0 +1,4 @@
+baseURL = 'https://6kgrunw3nwza.vichex.ca/'
+languageCode = 'en-us'
+title = 'Hex.Camp Dev Blog'
+theme = 'ananke'

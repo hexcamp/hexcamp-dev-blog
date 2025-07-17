@@ -81,7 +81,7 @@ I decided to try out Stract, since I've done a few small Rust projects lately, a
 
 ## Web archive data from Common Crawl
 
-Another reason I decided to try out Stract was that they originally used WARC files from the [Common Crawl project](https://commoncrawl.org/). Stract has their own crawler now, but I wanted to use my own WARC files (the WACZ files from WebRecorder are just Zip files with WARC files inside).
+Another reason I decided to try out Stract was that they originally used [WARC files](https://en.wikipedia.org/wiki/WARC_(file_format)) from the [Common Crawl project](https://commoncrawl.org/). Stract has their own crawler now, but I wanted to use my own WARC files (the [WACZ files](https://specs.webrecorder.net/wacz/1.1.1/) from WebRecorder are just Zip files with WARC files inside).
 
 The Common Crawl WARC files are very large, and contain thousands of websites per WARC file. Fortunately, there is a Python-based command line tool that will extract data from recent crawls
 for a specific URL:
@@ -96,9 +96,9 @@ cdxt --crawl 1 --limit 50 --verbose warc 'secure.pickleballcanada.org/club/victo
 
 That will create a WARC file with just the pages from the specified website.
 
-The download server from Common Crawl is severely rate-limited to prevent abuse, but it seems to work for a smaller experiment such as this.
+The download server from Common Crawl is [severely rate-limited](https://commoncrawl.org/faq) to prevent abuse, but it seems to work for a smaller experiment such as this.
 
-For my initial demo, I decided it would be useful to capture the latest crawl for the community associations in Victoria and Saanich.
+For my initial demo, I decided it would be useful to capture the latest crawl data for the community associations in Victoria and Saanich (part of Greater Victoria).
 
 Victoria: [https://www.victoria.ca/community-culture/neighbourhoods](https://www.victoria.ca/community-culture/neighbourhoods)
 
@@ -108,11 +108,11 @@ Saanich: [https://www.saanich.ca/EN/main/community/community-associations.html](
 
 ![Map of Saanich Neighboorhoods](images/saanich-neighbourhoods.png)
 
-I made a [crude script](https://github.com/hexcamp/vichex-community-associations/blob/main/fetch-common-crawl.sh) to capture the data for all the community associations. I then reserved 2400 hexagons covering all of Victoria, and [allocated hexagons](https://github.com/hexcamp/hexcamp-community-vichex/blob/main/vichex-search-experiment-1.csv) to store each captured web archive based on where they are located on the map. Then I uploaded the WARC files to IPFS (with the replayweb.page user interface so they can be viewed).
+I made a [crude script](https://github.com/hexcamp/vichex-community-associations/blob/main/fetch-common-crawl.sh) to capture the data for all the community associations. I then reserved 2400 hexagons covering all of Victoria, and [allocated hexagons](https://github.com/hexcamp/hexcamp-community-vichex/blob/main/vichex-search-experiment-1.csv) to store each captured web archive based on where they are located on the map. Then I uploaded the WARC files to IPFS (with the ReplayWeb.page user interface so they can be viewed).
 
-For example, the [Gorge Tillicum Community Assocation](https://www.gorgetillicum.ca/) is archived at [https://6kgrvkneaaaa.vichex.ca/](https://6kgrvkneaaaa.vichex.ca/).
+For example, the [Gorge Tillicum Community Assocation](https://www.gorgetillicum.ca/) is archived at [https://6kgrvkneaaaa.vichex.ca/](https://6kgrvkneaaaa.vichex.ca/)
 
-Compared to a web archive created with WebRecorder, these archives don't have images, so they aren't very human friendly. They do have the text that a web search engine needs though. Also, the Common Crawl spider covers the entire world, so I don't think it captures all the pages on sites that are very deep.
+Compared to a web archive created with WebRecorder, the Common Crawl archives don't have images, so they don't render well with ReplayWeb.page. They do have all the text that a web search engine needs though. Also, the Common Crawl spider has to cover the entire world, so it doesn't capture all the pages on sites that are very deep.
 
 Another drawback with the Common Crawl data is that their crawler respects [robots.txt](https://en.wikipedia.org/wiki/Robots.txt) files, so several of the community associations have no data. For example, the [James Bay Neighbourhood Assocation](https://www.jbna.org/) has very little data: [https://6kgrue2eaaaa.vichex.ca/](https://6kgrue2eaaaa.vichex.ca/)
 

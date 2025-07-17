@@ -21,7 +21,9 @@ In this case, the location was randomly chosen to be near Victoria, BC, Canada (
 
 Hex.Camp will have many different communities, each with it's own domain name. Victoria uses [vichex.ca](https://vichex.ca/).
 
-Although this blog doesn't need to be associated with a physical location, by placing it on the map, it provides a hint that it should be managed together with other websites nearby. We are using [IPFS Cluster](https://ipfscluster.io/) to maintain a list of all the pinned content on the IPFS servers. The core idea is to have different cluster instances for each community. Eventually we will use the "[Collaborative Clusters](https://ipfscluster.io/documentation/collaborative/)" feature to enable data mirroring within a community. 
+Although this blog doesn't need to be associated with a physical location, by placing it on the map, it provides a hint that it should be managed together with other websites nearby.
+
+We are using [IPFS Cluster](https://ipfscluster.io/) to maintain a list of all the pinned content on three IPFS servers that are inside my house. The core idea is to have different sets of content on dedicated cluster instances for each community. Eventually we will use the "[Collaborative Clusters](https://ipfscluster.io/documentation/collaborative/)" feature to enable data mirroring within a community. 
 
 ## Web Archiving on Hex.Camp
 

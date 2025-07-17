@@ -27,9 +27,9 @@ We are using [IPFS Cluster](https://ipfscluster.io/) to maintain a list of all t
 
 ## Web Archiving on Hex.Camp
 
-Hex.Camp is designed for millions of websites, but it is still very new. Multi-user support is a work-in-progress, so it doesn't have much original content apart from a few demos I made. For example: [Photos around Victoria](https://2kgrv5ga2i.vichex.ca/)
+Hex.Camp is designed for millions of websites, but it is still very new. Multi-user support is a work-in-progress, so it doesn't have much original content apart from a few demos I made. Here is one example of a demo I made: [Photos around Victoria](https://2kgrv5ga2i.vichex.ca/)
 
-We want to discover what use cases it can excel at. One clear initial use case is [web archiving](https://en.wikipedia.org/wiki/Web_archiving) on a community-by-community basis.
+We want to discover what use cases it can excel at. One initial use case is [web archiving](https://en.wikipedia.org/wiki/Web_archiving) on a community-by-community basis.
 
 We started with [WebRecorder](https://webrecorder.net/), which is a great project from [Ilya Kreymer](https://bsky.app/profile/ilya.webrecorder.net). I've met him at conferences and I've been watching the project for years. There is [a browser extension](https://webrecorder.net/archivewebpage/) for manually capturing web archive files, plus a [hosted service](https://webrecorder.net/browsertrix/) for scheduling crawls, and even an [open source playback library](https://webrecorder.net/replaywebpage/) that can be embedded into standalone web pages.
 
@@ -43,17 +43,19 @@ Here's what it looks like:
 
 ![Screenshot of Web Archive of Compost Education Centre](images/compost-education-centre-archive-screenshot.png)
 
-Here's where `6kgrvlcuqdaq` appears on the map (in the same place as the physical location of the building/garden):
+Here's where `6kgrvlcuqdaq` appears on the map. It is in the same place as the physical location of the centre:
 
 ![Location of Hexagon for Compost Education Centre on Map of Victoria](images/vichex-6kgrvlcuqdaq.png)
 
-In the process of making this, I discovered a small [bug in IPFS](https://github.com/ipfs/kubo/issues/10808) which was quickly fixed. I used to work on the IPFS team, and I know everybody involved, so it was fun to actually find a bug!
+While trying to get this to work, I discovered a small [bug in IPFS](https://github.com/ipfs/kubo/issues/10808) which was quickly fixed. I used to work on the IPFS team, and I know everybody involved, so it was fun to actually find a bug!
 
 ## Open Source Search Engines
 
-A community could archive many of their local websites, and they could be saved and made available for posterity (if the community also has enough disk space for it). It could be like a hyperlocal [Wayback Machine](https://web.archive.org/).
+We want to make it possible for a community to archive many of their local websites, so they could be saved and made available for posterity (if the community also has enough disk space for it). It would be like a hyperlocal [Wayback Machine](https://web.archive.org/).
 
-I started to wonder if it would be possible to make a search engine with the same data. That could be super useful. Google search is completely dominant, but they've enshittified the results with ads and AI, and it's a US-based goliath with a surveillance capitalism business model. There must be open source alternatives, right?
+I started to wonder if it would be possible to make a search engine with the same data?
+
+Google search is completely dominant, but they've [enshittified](https://en.wikipedia.org/wiki/Enshittification) the results with ads and AI. Now is a bad time to trust a US-based goliath with a surveillance capitalism business model. There must be open source alternatives, right?
 
 I did some [research](https://6kgruqaeaaaa.vichex.ca/) and I came up with a short list of 4 projects that seemed active:
 
@@ -73,7 +75,7 @@ I did some [research](https://6kgruqaeaaaa.vichex.ca/) and I came up with a shor
 
   Another recent project, written in Rust. Open source development appears to have been [paused](https://github.com/StractOrg/stract/commits/main/) since December, 2024, but they appear to have [plans for the future](https://stract.com/about).
 
-I decided to try out Stract, since I've done a few small Rust projects lately, and the [architecture docs](https://github.com/StractOrg/stract/tree/main/docs/architecture) made me think it was pretty clean. It uses the [Tantivy](https://github.com/quickwit-oss/tantivy/) search library, which is similar to Lucene, but written in Rust.
+I decided to try out Stract, since I've done a few small Rust projects lately, and the [architecture docs](https://github.com/StractOrg/stract/tree/main/docs/architecture) made me think it was pretty clean. It uses the [Tantivy](https://github.com/quickwit-oss/tantivy/) search library, which is similar to [Lucene](https://lucene.apache.org/), but written in Rust.
 
 ![Screenshot of Stract.com](images/stract.png)
 

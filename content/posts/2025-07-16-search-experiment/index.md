@@ -120,4 +120,22 @@ I also have a web page that lists all the community assocations with links to th
 
 ## Experimenting with Stract
 
+To get started with Stract, I started with the instructions on GitHub:
+
+* [GitHub: StractOrg/stract](https://github.com/StractOrg/stract)
+
+There is a [Contributing.md](https://github.com/StractOrg/stract/blob/main/CONTRIBUTING.md) file that documents the setup procedure.
+
+In the discussion forum, the developer has some [extra info on how to get started](https://github.com/StractOrg/stract/issues/124#issuecomment-1926740922) ... how to build the indexes, etc.
+
+The first issue I encountered was when I ran `just configure` ... it starts by downloading
+some data files from a self-hosted S3 compatible web bucket hosted by the developer. Unfortunately, the bucket with the files appears to be no longer be there, so it downloads a bunch of XML error messages instead of the data.
+
+I did some research, and I found some replacement files from the Internet that I could substitute. I got `bangs.json` from the test cases, `english-wordnet-2022-subset.ttl` from the upstream [Wordnet project](https://wordnet.princeton.edu/), `sample.warc.gz` from a WARC file I had created, and a `test.zim` file from [Kiwix](https://kiwix.org/en/).
+
+I've uploaded them here in case anybody else needs them: [https://6kgrvaaeaaaa.vichex.ca/](https://6kgrvaaeaaaa.vichex.ca/)
+
+
+
+
 ## Setting up Stract on Kubernetes

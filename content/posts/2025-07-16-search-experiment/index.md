@@ -1,6 +1,6 @@
 +++
 date = '2025-07-16T12:53:00-07:00'
-title = 'Making a tiny search engine using Common Crawl web archives and Stract'
+title = 'Making a custom search engine using Common Crawl web archives and Stract'
 [params]
   author = 'Jim Pick'
 +++
@@ -135,7 +135,33 @@ I did some research, and I found some replacement files from the Internet that I
 
 I've uploaded them here in case anybody else needs them: [https://6kgrvaaeaaaa.vichex.ca/](https://6kgrvaaeaaaa.vichex.ca/)
 
+Once I got it built and running, I modified the configure scripts to point at my WARC files
+from Common Crawl, and it would build indexes, but the indexes were empty.
 
+I dusted off some of my rust debugging skills, and I dug into the code. It turns out that
+the WARC parser in Stract is somewhat strict ... it's only coded to work with the WARC
+files that are emitted from it's own web crawler code. Those files have separate entries for "request", "response" and "metadata", and it expects all of those entries to exist. The
+WARC files from Common Crawl didn't have "request" and "metadata" entries. I hacked the
+rust code so that the parser is a bit more lenient and only looks for "response" entries (probably breaking it in the process for the other style of WARC file).
 
+You can find my "hacks" here:
+
+* [https://github.com/hexcamp/stract/commit/99bd2387b21d47f557271537bc92edb29b3696ca](https://github.com/hexcamp/stract/commit/99bd2387b21d47f557271537bc92edb29b3696ca)
+
+To build the indexes, several commands are needed. After building the binaries (`cargo build`), I made some simple scripts to build the indexes:
+
+* [reprocess.sh](https://github.com/hexcamp/stract/blob/jim_hacks/reprocess.sh)
+* [reprocess2.sh](https://github.com/hexcamp/stract/blob/jim_hacks/reprocess2.sh)
+
+I also updated some of the [config files](https://github.com/hexcamp/stract/tree/jim_hacks/configs) in that branch.
+
+To run the search backend, there are 4 different daemons to start. Here are my scripts:
+
+* [run-1-api.sh](https://github.com/hexcamp/stract/blob/jim_hacks/run-1-api.sh)
+* [run-2-search-server.sh](https://github.com/hexcamp/stract/blob/jim_hacks/run-2-search-server.sh)
+* [run-3-entity-search-server.sh](https://github.com/hexcamp/stract/blob/jim_hacks/run-3-entity-search-server.sh)
+* [run-4-webgraph.sh](https://github.com/hexcamp/stract/blob/jim_hacks/run-4-webgraph.sh)
+
+Finally
 
 ## Setting up Stract on Kubernetes

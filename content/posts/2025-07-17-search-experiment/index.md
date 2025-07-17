@@ -11,7 +11,7 @@ time to set up a formal blog to capture longer updates.
 
 ## Building a custom search engine
 
-This blog post describes how we created a custom search engine that indexes the community assocation websites for Victoria, BC, Canada.
+This blog post describes how we created a custom search engine that indexes the community association websites for Victoria, BC, Canada.
 
 * Try it out here: [https://6kgrwaaeaaaa.vichex.ca/](https://6kgrwaaeaaaa.vichex.ca/)
 
@@ -117,21 +117,21 @@ Victoria: [https://www.victoria.ca/community-culture/neighbourhoods](https://www
 
 Saanich: [https://www.saanich.ca/EN/main/community/community-associations.html](https://www.saanich.ca/EN/main/community/community-associations.html)
 
-![Map of Saanich Neighboorhoods](images/saanich-neighbourhoods.png)
+![Map of Saanich Neighbourhoods](images/saanich-neighbourhoods.png)
 
 I made a [crude script](https://github.com/hexcamp/vichex-community-associations/blob/main/fetch-common-crawl.sh) to capture the data for all the community associations. I then reserved 2400 hexagons covering all of Victoria, and [allocated hexagons](https://github.com/hexcamp/hexcamp-community-vichex/blob/main/vichex-search-experiment-1.csv) to store each captured web archive based on where they are located on the map. Then I uploaded the WARC files to IPFS (with the ReplayWeb.page user interface so they can be viewed).
 
-For example, the [Gorge Tillicum Community Assocation](https://www.gorgetillicum.ca/) is archived at [https://6kgrvkneaaaa.vichex.ca/](https://6kgrvkneaaaa.vichex.ca/)
+For example, the [Gorge Tillicum Community Association](https://www.gorgetillicum.ca/) is archived at [https://6kgrvkneaaaa.vichex.ca/](https://6kgrvkneaaaa.vichex.ca/)
 
 Compared to a web archive created with WebRecorder, the Common Crawl archives don't have images, so they don't render well with ReplayWeb.page. They do have all the text that a web search engine needs though. Also, the Common Crawl spider has to cover the entire world, so it doesn't capture all the pages on sites that are very deep.
 
-Another drawback with the Common Crawl data is that their crawler respects [robots.txt](https://en.wikipedia.org/wiki/Robots.txt) files, so several of the community associations have no data. For example, the [James Bay Neighbourhood Assocation](https://www.jbna.org/) has very little data: [https://6kgrue2eaaaa.vichex.ca/](https://6kgrue2eaaaa.vichex.ca/)
+Another drawback with the Common Crawl data is that their crawler respects [robots.txt](https://en.wikipedia.org/wiki/Robots.txt) files, so several of the community associations have no data. For example, the [James Bay Neighbourhood Association](https://www.jbna.org/) has very little data: [https://6kgrue2eaaaa.vichex.ca/](https://6kgrue2eaaaa.vichex.ca/)
 
 Just for fun, I also made a little clickable map with all the archives on it: [https://6kgruaaeaaaa.vichex.ca/](https://6kgruaaeaaaa.vichex.ca/)
 
 ![Screenshot of map with web archives](images/web-archive-map.png)
 
-I also have a web page that lists all the community assocations with links to them and their associated web archives: [https://6kgruqaeaaaa.vichex.ca/community-associations/](https://6kgruqaeaaaa.vichex.ca/community-associations/)
+I also have a web page that lists all the community associations with links to them and their associated web archives: [https://6kgruqaeaaaa.vichex.ca/community-associations/](https://6kgruqaeaaaa.vichex.ca/community-associations/)
 
 ## Experimenting with Stract
 
@@ -148,7 +148,7 @@ some data files from a self-hosted S3 compatible web bucket hosted by the develo
 
 I did some research, and I found some replacement files from the Internet that I could substitute. I got `bangs.json` from the test cases, `english-wordnet-2022-subset.ttl` from the upstream [Wordnet project](https://wordnet.princeton.edu/), `sample.warc.gz` from a WARC file I had created, and a `test.zim` file from [Kiwix](https://kiwix.org/en/).
 
-I've uploaded them here in case anybody else needs them: [https://6kgrvaaeaaaa.vichex.ca/](https://6kgrvaaeaaaa.vichex.ca/)
+I've uploaded the required data files here in case anybody else needs them: [https://6kgrvaaeaaaa.vichex.ca/](https://6kgrvaaeaaaa.vichex.ca/)
 
 Once I got it built and running, I modified the configure scripts to point at my WARC files
 from Common Crawl, and it would build indexes, but the indexes were empty.
@@ -193,15 +193,15 @@ For the backend Docker image, I created a [Dockerfile](https://github.com/hexcam
 
 The [frontend Dockerfile](https://github.com/hexcamp/stract/blob/jim_hacks/Dockerfile.frontend) was trickier because the frontend is a Node.js and SvelteKit app, but also has Rust parts that need to be built with wasm-pack.
 
-For the backend, I created a Kubernetes deployment with 4 containers in a single pod for each backend daemon. It is deployed into the namespace `ikgrw` which is the Hex.Camp hexagon ID that covers the Victoria area. I would have prefered to deploy it as a scale-to-zero Knative service, but it builds some indexes on startup, so the cold start time is not fast enough.
+For the backend, I created a Kubernetes deployment with 4 containers in a single pod for each backend daemon. It is deployed into the namespace `ikgrw` which is the Hex.Camp hexagon ID that covers the Victoria area. I would have preferred to deploy it as a scale-to-zero Knative service, but it builds some indexes on startup, so the cold start time is not fast enough.
 
-* [Kubernetes/ArgoCD resources for backend](https://github.com/hexcamp/hexcamp-argocd/tree/main/search/vichex/ikgrw/stract-backend-community-associations)
+* [Kubernetes/ArgoCD resources for backend deploy](https://github.com/hexcamp/hexcamp-argocd/tree/main/search/vichex/ikgrw/stract-backend-community-associations)
 
 I built the index data files on my laptop, and uploaded it to another website/hexagon here: [https://6kgrwqaeaaaa.vichex.ca/](https://6kgrwqaeaaaa.vichex.ca/)
 
 I manually copied the files into the [Persistent Volume](https://kubernetes.io/docs/concepts/storage/persistent-volumes/) for the backend. I haven't done it yet, but I think I will try to add an [Init Container](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/) to automatically download the index data via IPFS when the pod starts. When I want to update the search index data, I can push updated indexes to the Hex.Camp hexagon, and then restart the backend pod.
 
-For the frontend, it is mostly stateless, so I was able to deploy it as a Knative service. So it will spin down to zero instances when nobody is using it. The resources are here: [https://github.com/hexcamp/hexcamp-argocd/tree/main/search/vichex/ikgrw/stract-frontend-community-associations]
+For the frontend, it is mostly stateless, so I was able to deploy it as a Knative service. So it will spin down to zero instances when nobody is using it. The resources are here: [Kubernetes/ArgoCD resources for frontend deploy](https://github.com/hexcamp/hexcamp-argocd/tree/main/search/vichex/ikgrw/stract-frontend-community-associations)
 
 I did try to change the frontend to use the [static SvelteKit backend](https://svelte.dev/docs/kit/single-page-apps#Usage) so I could just upload it as a static website to IPFS, but it appears to depend on some logic that gets built into the Node.js backend.
 
@@ -218,6 +218,8 @@ Some sample searches: "gorge", "festival", "harm reduction", "council"
 The Hex.Camp DNS system still needs some performance optimizations, so it might take a second or two for the site to load and the search results to appear. Occasionally it is a bit glitchy. Also, the whole system is deployed on machines inside my house.
 
 There are a lot of things that could be done to make a production-class deployment more performant.
+
+I made a little [Search Experiment Website](https://6kgruqaeaaaa.vichex.ca/) with documentation and links for this experiment, plus future efforts.
 
 ## Next Steps
 

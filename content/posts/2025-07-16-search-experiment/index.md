@@ -21,15 +21,15 @@ In this case, the location was randomly chosen to be near Victoria, BC, Canada (
 
 Hex.Camp will have many different communities, each with it's own domain name. Victoria uses [vichex.ca](https://vichex.ca/).
 
-Although this blog doesn't need to be associated with a physical location, by placing it on the map, it provides a hint that it should be managed together with other websites nearby. We are using [IPFS Cluster](https://ipfscluster.io/) to maintain a list of all the pinned content on the IPFS servers. The core idea is to have different IPFS Cluster instances for each community within Hex.Camp. Eventually we will using the "[Collaborative Clusters](https://ipfscluster.io/documentation/collaborative/)" feature to enable data mirroring within a community. 
+Although this blog doesn't need to be associated with a physical location, by placing it on the map, it provides a hint that it should be managed together with other websites nearby. We are using [IPFS Cluster](https://ipfscluster.io/) to maintain a list of all the pinned content on the IPFS servers. The core idea is to have different cluster instances for each community. Eventually we will use the "[Collaborative Clusters](https://ipfscluster.io/documentation/collaborative/)" feature to enable data mirroring within a community. 
 
 ## Web Archiving on Hex.Camp
 
-Hex.Camp is designed for millions of websites, but it is still very new. Multi-user support is a work-in-progress, so it doesn't have much original content apart from a few demos I made. eg. [Photos around Victoria](https://2kgrv5ga2i.vichex.ca/)
+Hex.Camp is designed for millions of websites, but it is still very new. Multi-user support is a work-in-progress, so it doesn't have much original content apart from a few demos I made. For example: [Photos around Victoria](https://2kgrv5ga2i.vichex.ca/)
 
 We want to discover what use cases it can excel at. One clear initial use case is [web archiving](https://en.wikipedia.org/wiki/Web_archiving) on a community-by-community basis.
 
-We started with [WebRecorder](https://webrecorder.net/), which is just a great project by [Ilya Kreymer](https://bsky.app/profile/ilya.webrecorder.net). I've met him at conferences and I've been watching the project for years. There is [a browser extension](https://webrecorder.net/archivewebpage/) for manually capturing web archive files, plus a [hosted service](https://webrecorder.net/browsertrix/) for scheduling crawls, and even an [open source playback library](https://webrecorder.net/replaywebpage/) that can be embedded into standalone web pages.
+We started with [WebRecorder](https://webrecorder.net/), which is a great project from [Ilya Kreymer](https://bsky.app/profile/ilya.webrecorder.net). I've met him at conferences and I've been watching the project for years. There is [a browser extension](https://webrecorder.net/archivewebpage/) for manually capturing web archive files, plus a [hosted service](https://webrecorder.net/browsertrix/) for scheduling crawls, and even an [open source playback library](https://webrecorder.net/replaywebpage/) that can be embedded into standalone web pages.
 
 To test it out, I captured a WACZ file using [BrowserTrix](https://webrecorder.net/browsertrix/) for the [Compost Education Centre](https://compost.bc.ca/) in Victoria. Because it has a physical location, I can allocate a hexagon/website to hold the data. I used a self-hosted instance of [ReplayWeb.Page](https://webrecorder.net/replaywebpage/) together with the WACZ file on IPFS to make it browseable from the web.
 
@@ -37,11 +37,11 @@ You can see the hosted web archive here:
 
 * [https://6kgrvlcuqdaq.vichex.ca/](https://6kgrvlcuqdaq.vichex.ca/)
 
-Here's what the hosted web archive looks like:
+Here's what it looks like:
 
 ![Screenshot of Web Archive of Compost Education Centre](images/compost-education-centre-archive-screenshot.png)
 
-Here's where `6kgrvlcuqdaq` appears on the map (the same physical location of the building/garden):
+Here's where `6kgrvlcuqdaq` appears on the map (in the same place as the physical location of the building/garden):
 
 ![Location of Hexagon for Compost Education Centre on Map of Victoria](images/vichex-6kgrvlcuqdaq.png)
 
@@ -49,9 +49,9 @@ In the process of making this, I discovered a small [bug in IPFS](https://github
 
 ## Open Source Search Engines
 
-If we archive a lot of local websites, they could be available for posterity (if we have enough disk space for it). Sort of like a hyperlocal [Wayback Machine](https://web.archive.org/).
+A community could archive many of their local websites, and they could be saved and made available for posterity (if the community also has enough disk space for it). It could be like a hyperlocal [Wayback Machine](https://web.archive.org/).
 
-I started to wonder if it would be possible to make a search engine with the same data. That would be super useful. Google search is completely dominant, but they've enshittified the results with ads and AI, and it's a US-based goliath with a surveillance capitalism business model. There must be open source alternatives, right?
+I started to wonder if it would be possible to make a search engine with the same data. That could be super useful. Google search is completely dominant, but they've enshittified the results with ads and AI, and it's a US-based goliath with a surveillance capitalism business model. There must be open source alternatives, right?
 
 I did some [research](https://6kgruqaeaaaa.vichex.ca/) and I came up with a short list of 4 projects that seemed active:
 
@@ -65,7 +65,7 @@ I did some [research](https://6kgruqaeaaaa.vichex.ca/) and I came up with a shor
 
 * [Marginalia](https://marginalia-search.com/)
 
-  Another active project, written in Java.
+  Another active project. Written in Java.
 
 * [Stract](https://stract.com/)
 
@@ -77,7 +77,7 @@ I decided to try out Stract, since I've done a few small Rust projects lately, a
 
 ## Web archive data from Common Crawl
 
-Another reason I decided to try out Stract was that they originally used WARC files from the [Common Crawl project](https://commoncrawl.org/). They have their own crawler now, but I wanted to use my own WARC files (the WACZ files from WebRecorder are just Zip files with WARC files inside).
+Another reason I decided to try out Stract was that they originally used WARC files from the [Common Crawl project](https://commoncrawl.org/). Stract has their own crawler now, but I wanted to use my own WARC files (the WACZ files from WebRecorder are just Zip files with WARC files inside).
 
 The Common Crawl WARC files are very large, and contain thousands of websites per WARC file. Fortunately, there is a Python-based command line tool that will extract data from recent crawls
 for a specific URL:
@@ -91,6 +91,8 @@ cdxt --crawl 1 --limit 50 --verbose warc 'secure.pickleballcanada.org/club/victo
 ```
 
 That will create a WARC file with just the pages from the specified website.
+
+The download server from Common Crawl is severely rate-limited to prevent abuse, but it seems to work for a smaller experiment such as this.
 
 For my initial demo, I decided it would be useful to capture the latest crawl for the community associations in Victoria and Saanich.
 
@@ -113,6 +115,8 @@ Another drawback with the Common Crawl data is that their crawler respects [robo
 Just for fun, I also made a little clickable map with all the archives on it: [https://6kgruaaeaaaa.vichex.ca/](https://6kgruaaeaaaa.vichex.ca/)
 
 ![Screenshot of map with web archives](images/web-archive-map.png)
+
+I also have a web page that lists all the community assocations with links to them and their associated web archives: [https://6kgruqaeaaaa.vichex.ca/community-associations/](https://6kgruqaeaaaa.vichex.ca/community-associations/)
 
 ## Experimenting with Stract
 

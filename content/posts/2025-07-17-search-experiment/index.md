@@ -5,9 +5,20 @@ title = 'Making a custom search engine using Common Crawl web archives and Strac
   author = 'Jim Pick'
 +++
 
-Welcome to the new [Hex.Camp](https://hex.camp/) dev blog. I've been posting the occasional update
+> Welcome to the new [Hex.Camp](https://hex.camp/) dev blog. I've been posting the occasional update
 to my [Bluesky account](https://bsky.app/profile/jimpick.com), but I felt it was
 time to set up a formal blog to capture longer updates.
+
+## Building a custom search engine
+
+This blog post describes how we created a custom search engine that indexes the community assocation websites for Victoria, BC, Canada.
+
+* Try it out here: [https://6kgrwaaeaaaa.vichex.ca/](https://6kgrwaaeaaaa.vichex.ca/)
+
+Some sample searches: "gorge", "festival", "harm reduction", "council"
+
+![Screenshot of custom search engine](images/vichex-stract-gorge.png)
+Read more to find out how it was built...
 
 ## Quick primer on Hex.Camp
 
@@ -166,6 +177,68 @@ To run the search backend, there are 4 different daemons to start. Here are my s
 * [run-3-entity-search-server.sh](https://github.com/hexcamp/stract/blob/jim_hacks/run-3-entity-search-server.sh)
 * [run-4-webgraph.sh](https://github.com/hexcamp/stract/blob/jim_hacks/run-4-webgraph.sh)
 
-Finally
+The frontend is written using [Svelte](https://svelte.dev/) and using the Node.js SvelteKit adapter. The frontend daemon can be started with `just dev-frontend`. The [frontend/.env](https://github.com/hexcamp/stract/blob/jim_hacks/frontend/.env) file can be edited to point at the backend endpoint.
+
+After building the indexes, starting that backend daemons and the frontend, I was able to run Stract on my laptop and the [search worked](https://bsky.app/profile/jimpick.com/post/3lszc4rv3r22t)!
+
+![Screenshot of Stract on my laptop](images/stract-works.jpg)
 
 ## Setting up Stract on Kubernetes
+
+It was working on my laptop, so the next challenge was to get it deployed publicly.
+
+All of the backend software for Hex.Camp runs inside my house on my "homelab". I've standardized everything on [Kubernetes](https://kubernetes.io/) and [Knative](https://knative.dev/docs/). Everything inside the cluster is deployed using [ArgoCD](https://argoproj.github.io/cd/).
+
+For the backend Docker image, I created a [Dockerfile](https://github.com/hexcamp/stract/blob/jim_hacks/Dockerfile) using [cargo-chef](https://github.com/LukeMathWalker/cargo-chef).
+
+The [frontend Dockerfile](https://github.com/hexcamp/stract/blob/jim_hacks/Dockerfile.frontend) was trickier because the frontend is a Node.js and SvelteKit app, but also has Rust parts that need to be built with wasm-pack.
+
+For the backend, I created a Kubernetes deployment with 4 containers in a single pod for each backend daemon. It is deployed into the namespace `ikgrw` which is the Hex.Camp hexagon ID that covers the Victoria area. I would have prefered to deploy it as a scale-to-zero Knative service, but it builds some indexes on startup, so the cold start time is not fast enough.
+
+* [Kubernetes/ArgoCD resources for backend](https://github.com/hexcamp/hexcamp-argocd/tree/main/search/vichex/ikgrw/stract-backend-community-associations)
+
+I built the index data files on my laptop, and uploaded it to another website/hexagon here: [https://6kgrwqaeaaaa.vichex.ca/](https://6kgrwqaeaaaa.vichex.ca/)
+
+I manually copied the files into the [Persistent Volume](https://kubernetes.io/docs/concepts/storage/persistent-volumes/) for the backend. I haven't done it yet, but I think I will try to add an [Init Container](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/) to automatically download the index data via IPFS when the pod starts. When I want to update the search index data, I can push updated indexes to the Hex.Camp hexagon, and then restart the backend pod.
+
+For the frontend, it is mostly stateless, so I was able to deploy it as a Knative service. So it will spin down to zero instances when nobody is using it. The resources are here: [https://github.com/hexcamp/hexcamp-argocd/tree/main/search/vichex/ikgrw/stract-frontend-community-associations]
+
+I did try to change the frontend to use the [static SvelteKit backend](https://svelte.dev/docs/kit/single-page-apps#Usage) so I could just upload it as a static website to IPFS, but it appears to depend on some logic that gets built into the Node.js backend.
+
+## Demo Search
+
+After all that, I now have a demo search instance online!
+
+* Try it out here: [https://6kgrwaaeaaaa.vichex.ca/](https://6kgrwaaeaaaa.vichex.ca/)
+
+Some sample searches: "gorge", "festival", "harm reduction", "council"
+
+![Screenshot of custom search](images/vichex-stract-gorge2.png)
+
+The Hex.Camp DNS system still needs some performance optimizations, so it might take a second or two for the site to load and the search results to appear. Occasionally it is a bit glitchy. Also, the whole system is deployed on machines inside my house.
+
+There are a lot of things that could be done to make a production-class deployment more performant.
+
+## Next Steps
+
+The current demo indexes 28 websites with about 700 webpages. The index files take up 62MB.
+
+It would be interesting to try to build another index with a much larger set of sites.
+
+We're going to the [DWeb Camp Cascadia](https://dwebyvr.org/camp/) event on Salt Spring Island on August 8-10, near Victoria.
+
+It's a small island, so it would be interesting to see if we could collect Common Crawl data for a larger set of websites and build a search index that covers most of the websites on the island!
+
+We have many more ideas. Wouldn't it be interesting to make a local news search engine? Or a search engine for a particular global topic?
+
+The front end webpages are unmodified in this demo, but it would be useful to be able to customize them, or make it embeddable in other web pages.
+
+We don't know what is happening with the upstream [Stract project](https://stract.com/), but we plan to reach out on the [discussion forum](https://github.com/StractOrg/stract/discussions) to share my results.
+
+We would also really love to collaborate with other people in the web archiving community to extend this work.
+
+As for Hex.Camp, it is entirely self-funded at the moment. I work on it when I have time between freelance consulting work. I am looking for extra work at the moment.
+
+As Hex.Camp matures and opens up to multiple users, we do plan to put some fundraising mechanisms in place so that individual communities can be self-sustaining.
+
+It would also be nice if we could collect some funding so we can spend more time on pushing it forward. This is a new thing for us, so any help is appreciated!

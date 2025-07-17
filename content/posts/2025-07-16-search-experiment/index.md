@@ -17,15 +17,17 @@ For example, this blog is published to a DNS name of **6l22glmvqj2a.vichex.ca**.
 
 ![Location of 6l22glmvqj2a.vichex.ca](images/vichex-6l22glmvqj2a.png)
 
-In this case, the location was randomly chosen to be nearby Victoria, BC, Canada (where I live). Unintentionally, the location appears to be in the ocean.
+In this case, the location was randomly chosen to be near Victoria, BC, Canada (where I live). Unintentionally, the location appears to be in the ocean.
 
-Although this blog doesn't need to be associated with a physical location, by placing it on the map, it provides a hint that it should be managed together with other websites nearby. We are using [IPFS Cluster](https://ipfscluster.io/) to maintain a list of all the pinned content in the IPFS cluster. The core idea is to have different IPFS Cluster instances for each community within Hex.Camp. Eventually we will using the "[Collaborative Clusters](https://ipfscluster.io/documentation/collaborative/)" feature to enable data mirroring within a community. 
+Hex.Camp will have many different communities, each with it's own domain name. Victoria uses [vichex.ca](https://vichex.ca/).
+
+Although this blog doesn't need to be associated with a physical location, by placing it on the map, it provides a hint that it should be managed together with other websites nearby. We are using [IPFS Cluster](https://ipfscluster.io/) to maintain a list of all the pinned content on the IPFS servers. The core idea is to have different IPFS Cluster instances for each community within Hex.Camp. Eventually we will using the "[Collaborative Clusters](https://ipfscluster.io/documentation/collaborative/)" feature to enable data mirroring within a community. 
 
 ## Web Archiving on Hex.Camp
 
-Hex.Camp is designed for millions of websites, but it is still very new, multi-user support is a work-in-progress, so it doesn't have much original content apart from a few demos I made, eg. [Photos around Victoria](https://2kgrv5ga2i.vichex.ca/)
+Hex.Camp is designed for millions of websites, but it is still very new. Multi-user support is a work-in-progress, so it doesn't have much original content apart from a few demos I made. eg. [Photos around Victoria](https://2kgrv5ga2i.vichex.ca/)
 
-We want to discover what use cases it excel at. One clear use case that initially stands out is [web archiving](https://en.wikipedia.org/wiki/Web_archiving) on a community-by-community basis.
+We want to discover what use cases it can excel at. One clear initial use case is [web archiving](https://en.wikipedia.org/wiki/Web_archiving) on a community-by-community basis.
 
 We started with [WebRecorder](https://webrecorder.net/), which is just a great project by [Ilya Kreymer](https://bsky.app/profile/ilya.webrecorder.net). I've met him at conferences and I've been watching the project for years. There is [a browser extension](https://webrecorder.net/archivewebpage/) for manually capturing web archive files, plus a [hosted service](https://webrecorder.net/browsertrix/) for scheduling crawls, and even an [open source playback library](https://webrecorder.net/replaywebpage/) that can be embedded into standalone web pages.
 

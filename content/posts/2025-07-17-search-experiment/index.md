@@ -221,13 +221,17 @@ There are a lot of things that could be done to make a production-class deployme
 
 ## Next Steps
 
-The current demo indexes 28 websites with about 700 webpages. The index files take up 62MB.
+The current demo indexes 28 websites with about 700 webpages. The [index files](https://6kgrwqaeaaaa.vichex.ca/) take up 60MB.
 
 It would be interesting to try to build another index with a much larger set of sites.
 
 We're going to the [DWeb Camp Cascadia](https://dwebyvr.org/camp/) event on Salt Spring Island on August 8-10, near Victoria.
 
+![DWeb Camp Cascadia](images/DWebCampCascadia_jpg-1.jpg)
+
 It's a small island, so it would be interesting to see if we could collect Common Crawl data for a larger set of websites and build a search index that covers most of the websites on the island!
+
+![Salt Spring Island Map](images/salt-spring-island.png)
 
 We have many more ideas. Wouldn't it be interesting to make a local news search engine? Or a search engine for a particular global topic?
 

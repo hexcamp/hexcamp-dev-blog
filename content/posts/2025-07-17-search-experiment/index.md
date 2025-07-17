@@ -1,5 +1,5 @@
 +++
-date = '2025-07-16T12:53:00-07:00'
+date = '2025-07-17T12:53:00-07:00'
 title = 'Making a custom search engine using Common Crawl web archives and Stract'
 [params]
   author = 'Jim Pick'

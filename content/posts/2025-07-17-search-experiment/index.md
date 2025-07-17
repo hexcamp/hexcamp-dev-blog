@@ -247,6 +247,6 @@ As for Hex.Camp, it is entirely self-funded at the moment. We work on it when we
 
 As Hex.Camp matures and opens up to multiple users, we do plan to put some fundraising mechanisms in place so that individual communities can be self-sustaining.
 
-It would also be nice if we could collect some funding so we can spend more time on pushing it forward. This is a new thing for us, so any help is appreciated!
+It would also be nice if we could attract some grants or other funding so we can spend more time on pushing it forward. This is a new thing for us, so any help is appreciated! At the moment, we have set up a [GitHub Sponsors page](https://github.com/sponsors/hexcamp).
 
 Please reach out to our [small team](https://whimsicalmachines.com/) with your ideas or feedback! I'm always at [@jimpick](https://bsky.app/profile/jimpick.com), either on BlueSky or via email at <a href="mailto:jim@jimpick.com">jim@jimpick.com</a>. Or schedule a meeting with me at [Calendly](https://calendly.com/jjpick23).

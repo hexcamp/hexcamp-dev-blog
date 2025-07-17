@@ -241,8 +241,10 @@ We don't know what is happening with the upstream [Stract project](https://strac
 
 We would also really love to collaborate with other people in the web archiving community to extend this work.
 
-As for Hex.Camp, it is entirely self-funded at the moment. I work on it when I have time between freelance consulting work. I am looking for extra work at the moment.
+As for Hex.Camp, it is entirely self-funded at the moment. We work on it when we have time between freelance consulting work. Currently, we have availability for projects, e
 
 As Hex.Camp matures and opens up to multiple users, we do plan to put some fundraising mechanisms in place so that individual communities can be self-sustaining.
 
 It would also be nice if we could collect some funding so we can spend more time on pushing it forward. This is a new thing for us, so any help is appreciated!
+
+Please reach out to our [small team](https://whimsicalmachines.com/) with your ideas or feedback! I'm always at [@jimpick](https://bsky.app/profile/jimpick.com), either on BlueSky or via email at <a href="mailto:jim@jimpick.com">jim@jimpick.com</a>. Or schedule a meeting with me at [Calendly](https://calendly.com/jjpick23).

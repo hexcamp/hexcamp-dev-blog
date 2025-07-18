@@ -190,7 +190,7 @@ To run the search backend, there are 4 different daemons to start.
 
 The frontend is written using [Svelte](https://svelte.dev/) with the Node.js SvelteKit adapter. The frontend daemon can be started with `just dev-frontend`. The [frontend/.env](https://github.com/hexcamp/stract/blob/jim_hacks/frontend/.env) file can be edited to point at the backend endpoint.
 
-After building the indexes, starting that backend daemons and the frontend, I was able to run Stract on my laptop and the [search worked](https://bsky.app/profile/jimpick.com/post/3lszc4rv3r22t)!
+After building the indexes, starting the backend daemons and the frontend, I was able to run Stract on my laptop. Amazingly, the [search worked](https://bsky.app/profile/jimpick.com/post/3lszc4rv3r22t)!
 
 <!-- ![Screenshot of Stract on my laptop](images/stract-works.jpg) -->
 {{< figure alt="Screenshot of Stract on my laptop" src="images/stract-works.jpg" class="ma0" >}}

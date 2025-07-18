@@ -181,12 +181,12 @@ To build the indexes, several commands are needed. After building the binaries (
 
 I also updated some of the [config files](https://github.com/hexcamp/stract/tree/jim_hacks/configs) in that branch.
 
-To run the search backend, there are 4 different daemons to start. Here are my scripts:
+To run the search backend, there are 4 different daemons to start.
 
-* [run-1-api.sh](https://github.com/hexcamp/stract/blob/jim_hacks/run-1-api.sh)
-* [run-2-search-server.sh](https://github.com/hexcamp/stract/blob/jim_hacks/run-2-search-server.sh)
-* [run-3-entity-search-server.sh](https://github.com/hexcamp/stract/blob/jim_hacks/run-3-entity-search-server.sh)
-* [run-4-webgraph.sh](https://github.com/hexcamp/stract/blob/jim_hacks/run-4-webgraph.sh)
+* `just dev-search-server`
+* `just dev-entity-search-server`
+* `just dev-webgraph`
+* `just dev-frontend`
 
 The frontend is written using [Svelte](https://svelte.dev/) with the Node.js SvelteKit adapter. The frontend daemon can be started with `just dev-frontend`. The [frontend/.env](https://github.com/hexcamp/stract/blob/jim_hacks/frontend/.env) file can be edited to point at the backend endpoint.
 
@@ -202,6 +202,13 @@ It was working on my laptop, so the next challenge was to get it deployed public
 All of the backend software for Hex.Camp runs inside my house on my "homelab". I've standardized everything on [Kubernetes](https://kubernetes.io/) and [Knative](https://knative.dev/docs/). Everything inside the cluster is deployed using [ArgoCD](https://argoproj.github.io/cd/).
 
 For the backend Docker image, I created a [Dockerfile](https://github.com/hexcamp/stract/blob/jim_hacks/Dockerfile) using [cargo-chef](https://github.com/LukeMathWalker/cargo-chef).
+
+To test the Docker images for the backend daemons using a local Docker instance (not Kubernetes), I made the following scripts:
+
+* [run-1-api.sh](https://github.com/hexcamp/stract/blob/jim_hacks/run-1-api.sh)
+* [run-2-search-server.sh](https://github.com/hexcamp/stract/blob/jim_hacks/run-2-search-server.sh)
+* [run-3-entity-search-server.sh](https://github.com/hexcamp/stract/blob/jim_hacks/run-3-entity-search-server.sh)
+* [run-4-webgraph.sh](https://github.com/hexcamp/stract/blob/jim_hacks/run-4-webgraph.sh)
 
 The [frontend Dockerfile](https://github.com/hexcamp/stract/blob/jim_hacks/Dockerfile.frontend) was trickier because the frontend is a Node.js and SvelteKit app, but also has Rust parts that need to be built with wasm-pack.
 

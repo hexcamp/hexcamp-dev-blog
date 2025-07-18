@@ -6,19 +6,23 @@ title = 'Making a custom search engine using Common Crawl web archives and Strac
 +++
 
 > Welcome to the new [Hex.Camp](https://hex.camp/) dev blog. I've been posting the occasional update
-to my [Bluesky account](https://bsky.app/profile/jimpick.com), but I felt it was
+to my [BlueSky account](https://bsky.app/profile/jimpick.com), but I felt it was
 time to set up a formal blog to capture longer updates.
 
 ## Building a custom search engine
 
-This blog post describes how we created a custom search engine that indexes the community association websites for Victoria, BC, Canada.
+This blog post describes how I created a custom search engine that indexes the community association websites for Victoria, BC, Canada.
 
 * Try it out here: [https://6kgrwaaeaaaa.vichex.ca/](https://6kgrwaaeaaaa.vichex.ca/)
 
-Some sample searches: "gorge", "festival", "harm reduction", "council"
+Try some sample searches: "gorge", "festival", "harm reduction", "council"
 
-![Screenshot of custom search engine](images/vichex-stract-gorge.png)
+<!-- ![Screenshot of custom search engine](images/vichex-stract-gorge.png) -->
+{{< figure src="images/vichex-stract-gorge.png" alt="Screenshot of custom search engine" class="ma0" >}}
+
 Read more to find out how it was built...
+
+<!--more-->
 
 ## Quick primer on Hex.Camp
 
@@ -26,7 +30,8 @@ Hex.Camp takes the [H3 geographic indexing system](https://h3geo.org/) from Uber
 
 For example, this blog is published to a DNS name of **6l22glmvqj2a.vichex.ca**. The `6l22glmvqj2a` portion of the name is actually an encoded H3 location that exists on a map:
 
-![Location of 6l22glmvqj2a.vichex.ca](images/vichex-6l22glmvqj2a.png)
+<!-- ![Location of 6l22glmvqj2a.vichex.ca](images/vichex-6l22glmvqj2a.png) -->
+{{< figure src="images/vichex-6l22glmvqj2a.png" alt="Location of 6l22glmvqj2a.vichex.ca" class="ma0" >}}
 
 In this case, the location was randomly chosen to be near Victoria, BC, Canada (where I live). Unintentionally, the location appears to be in the ocean.
 
@@ -52,11 +57,13 @@ You can see the hosted web archive here:
 
 Here's what it looks like:
 
-![Screenshot of Web Archive of Compost Education Centre](images/compost-education-centre-archive-screenshot.png)
+<!-- ![Screenshot of Web Archive of Compost Education Centre](images/compost-education-centre-archive-screenshot.png) -->
+{{< figure src="images/compost-education-centre-archive-screenshot.png" alt="Screenshot of Web Archive of Compost Education Centre" class="ma0" >}}
 
 Here's where `6kgrvlcuqdaq` appears on the map. It is in the same place as the physical location of the centre:
 
-![Location of Hexagon for Compost Education Centre on Map of Victoria](images/vichex-6kgrvlcuqdaq.png)
+<!-- ![Location of Hexagon for Compost Education Centre on Map of Victoria](images/vichex-6kgrvlcuqdaq.png) -->
+{{< figure alt="Location of Hexagon for Compost Education Centre on Map of Victoria" src="images/vichex-6kgrvlcuqdaq.png" class="ma0" >}}
 
 While trying to get this to work, I discovered a small [bug in IPFS](https://github.com/ipfs/kubo/issues/10808) which was quickly fixed. I used to work on the IPFS team, and I know everybody involved, so it was fun to actually find a bug!
 
@@ -88,7 +95,8 @@ I did some [research](https://6kgruqaeaaaa.vichex.ca/) and I came up with a shor
 
 I decided to try out Stract, since I've done a few small Rust projects lately, and the [architecture docs](https://github.com/StractOrg/stract/tree/main/docs/architecture) made me think it was pretty clean. It uses the [Tantivy](https://github.com/quickwit-oss/tantivy/) search library, which is similar to [Lucene](https://lucene.apache.org/), but written in Rust.
 
-![Screenshot of Stract.com](images/stract.png)
+<!-- ![Screenshot of Stract.com](images/stract.png) -->
+{{< figure alt="Screenshot of Stract.com" src="images/stract.png" class="ma0" >}}
 
 ## Web archive data from Common Crawl
 
@@ -113,11 +121,13 @@ For my initial demo, I decided it would be useful to capture the latest crawl da
 
 Victoria: [https://www.victoria.ca/community-culture/neighbourhoods](https://www.victoria.ca/community-culture/neighbourhoods)
 
-![Map of Victoria Neighbourhoods](images/victoria-neighbourhoods.jpg)
+<!-- ![Map of Victoria Neighbourhoods](images/victoria-neighbourhoods.jpg) -->
+{{< figure alt="Map of Victoria Neighbourhoods" src="images/victoria-neighbourhoods.jpg" class="ma0" >}}
 
 Saanich: [https://www.saanich.ca/EN/main/community/community-associations.html](https://www.saanich.ca/EN/main/community/community-associations.html)
 
-![Map of Saanich Neighbourhoods](images/saanich-neighbourhoods.png)
+<!-- ![Map of Saanich Neighbourhoods](images/saanich-neighbourhoods.png) -->
+{{< figure alt="Map of Saanich Neighbourhoods" src="images/saanich-neighbourhoods.png" class="ma0" >}}
 
 I made a [crude script](https://github.com/hexcamp/vichex-community-associations/blob/main/fetch-common-crawl.sh) to capture the data for all the community associations. I then reserved 2400 hexagons covering all of Victoria, and [allocated hexagons](https://github.com/hexcamp/hexcamp-community-vichex/blob/main/vichex-search-experiment-1.csv) to store each captured web archive based on where they are located on the map. Then I uploaded the WARC files to IPFS (with the ReplayWeb.page user interface so they can be viewed).
 
@@ -129,7 +139,8 @@ Another drawback with the Common Crawl data is that their crawler respects [robo
 
 Just for fun, I also made a little clickable map with all the archives on it: [https://6kgruaaeaaaa.vichex.ca/](https://6kgruaaeaaaa.vichex.ca/)
 
-![Screenshot of map with web archives](images/web-archive-map.png)
+<!-- ![Screenshot of map with web archives](images/web-archive-map.png) -->
+{{< figure alt="Screenshot of map with web archives" src="images/web-archive-map.png" class="ma0" >}}
 
 I also have a web page that lists all the community associations with links to them and their associated web archives: [https://6kgruqaeaaaa.vichex.ca/community-associations/](https://6kgruqaeaaaa.vichex.ca/community-associations/)
 
@@ -181,7 +192,8 @@ The frontend is written using [Svelte](https://svelte.dev/) and using the Node.j
 
 After building the indexes, starting that backend daemons and the frontend, I was able to run Stract on my laptop and the [search worked](https://bsky.app/profile/jimpick.com/post/3lszc4rv3r22t)!
 
-![Screenshot of Stract on my laptop](images/stract-works.jpg)
+<!-- ![Screenshot of Stract on my laptop](images/stract-works.jpg) -->
+{{< figure alt="Screenshot of Stract on my laptop" src="images/stract-works.jpg" class="ma0" >}}
 
 ## Setting up Stract on Kubernetes
 
@@ -213,7 +225,8 @@ After all that, I now have a demo search instance online!
 
 Some sample searches: "gorge", "festival", "harm reduction", "council"
 
-![Screenshot of custom search](images/vichex-stract-gorge2.png)
+<!-- ![Screenshot of custom search](images/vichex-stract-gorge2.png) -->
+{{< figure alt="Screenshot of custom search" src="images/vichex-stract-gorge2.png" class="ma0" >}}
 
 The Hex.Camp DNS system still needs some performance optimizations, so it might take a second or two for the site to load and the search results to appear. Occasionally it is a bit glitchy. Also, the whole system is deployed on machines inside my house.
 
@@ -229,11 +242,13 @@ It would be interesting to try to build another index with a much larger set of 
 
 We're going to the [DWeb Camp Cascadia](https://dwebyvr.org/camp/) event on Salt Spring Island on August 8-10, near Victoria.
 
-![DWeb Camp Cascadia](images/DWebCampCascadia_jpg-1.jpg)
+<!-- ![DWeb Camp Cascadia](images/DWebCampCascadia_jpg-1.jpg) -->
+{{< figure alt="DWeb Camp Cascadia" src="images/DWebCampCascadia_jpg-1.jpg" class="ma0" >}}
 
 It's a small island, so it would be interesting to see if we could collect Common Crawl data for a larger set of websites and build a search index that covers most of the websites on the island!
 
-![Salt Spring Island Map](images/salt-spring-island.png)
+<!-- ![Salt Spring Island Map](images/salt-spring-island.png) -->
+{{< figure alt="Salt Spring Island Map" src="images/salt-spring-island.png" class="ma0" >}}
 
 We have many more ideas. Wouldn't it be interesting to make a local news search engine? Or a search engine for a particular global topic?
 
@@ -243,7 +258,7 @@ We don't know what is happening with the upstream [Stract project](https://strac
 
 We would also really love to collaborate with other people in the web archiving community to extend this work.
 
-As for Hex.Camp, it is entirely self-funded at the moment. We work on it when we have time between freelance consulting work. Currently, we have availability for projects, e
+As for Hex.Camp, it is entirely self-funded at the moment. We work on it when we have time between freelance consulting work. Currently, we have availability for projects.
 
 As Hex.Camp matures and opens up to multiple users, we do plan to put some fundraising mechanisms in place so that individual communities can be self-sustaining.
 
